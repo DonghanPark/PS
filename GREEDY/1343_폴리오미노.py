@@ -1,5 +1,9 @@
+# 24.03.25
+# 훨씬 쉬운 풀이 있음
+
 def main():
     board = input()
+    count = 0
     answer = ''
     array = []
     for i in board:
