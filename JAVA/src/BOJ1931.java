@@ -17,9 +17,9 @@ public class BOJ1931 {
         int N = Integer.parseInt(st.nextToken());
         PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> {
             if (o1[0] == o2[0])
-                return o1[1] - o2[1];
+                return Integer.compare(o1[1], o2[1]);
             else
-                return o1[0] - o2[0];
+                return Integer.compare(o1[0], o2[0]);
         });
 
         for (int i = 0; i < N; i++) {
@@ -29,15 +29,15 @@ public class BOJ1931 {
             pq.offer(new int[] {end, start});
         }
 
-        int time = 0;
+        int lastEnd = 0;
         int count = 0;
         for (int i = 0; i < N; i++) {
             int[] curr = pq.poll();
             int end = curr[0];
             int start = curr[1];
 
-            if (start >= time) {
-                time = end;
+            if (start >= lastEnd) {
+                lastEnd = end;
                 count++;
             }
         }
