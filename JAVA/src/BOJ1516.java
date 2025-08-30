@@ -14,9 +14,6 @@ public class BOJ1516 {
         ArrayList<Integer>[] adjList = new ArrayList[N + 1];
         for (int i = 1; i < N + 1; i++)
             adjList[i] = new ArrayList<>();
-        ArrayList<Integer>[] preBuildings = new ArrayList[N + 1];
-        for (int i = 1; i < N + 1; i++)
-            preBuildings[i] = new ArrayList<>();
         for (int i = 1; i < N + 1; i++) {
             st = new StringTokenizer(br.readLine());
 
@@ -28,31 +25,25 @@ public class BOJ1516 {
 
                 inDegree[i]++;
                 adjList[preBuilding].add(i);
-                preBuildings[i].add(preBuilding);
             }
         }
 
         Queue<Integer> queue = new ArrayDeque<>();
         for (int i = 1; i < N + 1; i++) {
-            if (inDegree[i] != 0) continue;
-
-            queue.add(i);
+            if (inDegree[i] == 0)
+                queue.add(i);
         }
 
-        int[] minCost = new int[N + 1];
-        System.arraycopy(cost, 0, minCost, 0, N + 1);
+        int[] minCost = Arrays.copyOf(cost, N + 1);
         while (!queue.isEmpty()) {
             int curr = queue.poll();
 
-            for (int preBuilding : preBuildings[curr]) {
-                minCost[curr] += cost[preBuilding];
-            }
-
             for (int next : adjList[curr]) {
-                inDegree[next]--;
-                if (inDegree[next] != 0) continue;
+                minCost[next] = Math.max(minCost[next], minCost[curr] + cost[next]);
 
-                queue.add(next);
+                inDegree[next]--;
+                if (inDegree[next] == 0)
+                    queue.add(next);
             }
         }
 
