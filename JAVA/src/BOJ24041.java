@@ -26,24 +26,11 @@ public class BOJ24041 {
             ingredient[i][2] = Integer.parseInt(st.nextToken()); // O (0 = 중요, 1 = 중요X)
         }
 
-//        int answer = 0;
-//
-//        for (int x = 0; x <= 2_000_000_000; x++) {
-//            if (!canEat(x)) {
-//                answer = x - 1;
-//                break;
-//            }
-//
-//            if (x == 2_000_000_000) {
-//                answer = x;
-//            }
-//        }
-
-        int lo = 0;
-        int hi = 2_000_000_000;
-        int answer = 0;
+        long lo = 0;
+        long hi = 2_000_000_000L;
+        long answer = 0;
         while (lo <= hi) {
-            int mid = (lo + hi) / 2;
+            long mid = (lo + hi) / 2;
             if (canEat(mid)) {
                 answer = mid;
                 lo = mid + 1;
